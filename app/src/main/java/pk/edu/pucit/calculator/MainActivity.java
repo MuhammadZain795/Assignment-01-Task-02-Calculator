@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import org.mariuszgromada.math.mxparser.*;
 
 public class MainActivity extends AppCompatActivity {
     TextView btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0,btn00,btnAc,btnDel,btnDiv,btnAdd,btnSub,btnMul,btnEq,btnPer,btnDot,equ,res;
@@ -41,14 +42,26 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view){
         String str=((TextView)view).getText().toString();
         String eq=String.valueOf(equ.getText());
-//        int length=eq.length();
+        int length=eq.length();
 //        String last=eq.substring(length-1,length);
-        if((equ.length()==0) && ((str.equals("+"))|| (str.equals("X"))||(str.equals("/"))||(str.equals("."))||(str.equals("%")))) {
+        if((equ.length()==0) && ((str.equals("+"))|| (str.equals("*"))||(str.equals("/"))||(str.equals("."))||(str.equals("%")))) {
             equ.setText("");
         }
-//        else if((equ.length()>0)&&(last.equals("-"))){
-//            equ.setText(equ+"");
-//        }
+        else if(equ.length()>0){
+            String last=eq.substring(length-1,length);
+            if((last.equals("-")||last.equals("+")||last.equals(".")||last.equals("%"))&&((str.equals("+"))||(str.equals("*"))||(str.equals("."))||(str.equals("/"))||(str.equals("%"))||(str.equals("-")))){
+                equ.setText(equ.getText()+"");
+            }
+            else if((last.equals("*")||last.equals("/"))&&(str.equals("-"))){
+                equ.setText(equ.getText()+str);
+            }
+            else if((last.equals("*")||last.equals("/"))&&(str.equals("+")||str.equals("*")||str.equals("/")||str.equals(".")||str.equals("%"))){
+                equ.setText(equ.getText()+"");
+            }
+            else {
+                equ.setText(equ.getText()+str);
+            }
+        }
         else{
             equ.setText(equ.getText() + str);
         }
@@ -58,7 +71,10 @@ public class MainActivity extends AppCompatActivity {
         res.setText("");
     }
     public void equate(View view) {
-
+        String eq=String.valueOf(equ.getText());
+        Expression e= new Expression(eq);
+        String result=String.valueOf(e.calculate());
+        res.setText(result);
     }
     public void del(View view){
         String eq=String.valueOf(equ.getText());

@@ -86,7 +86,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:onClick="onClick"
-                android:text="X"
+                android:text="*"
                 android:textColor="@color/white"
                 android:textSize="10pt" />
 
