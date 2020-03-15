@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         String str=((TextView)view).getText().toString();
         String eq=String.valueOf(equ.getText());
         int length=eq.length();
-//        String last=eq.substring(length-1,length);
         if((equ.length()==0) && ((str.equals("+"))|| (str.equals("*"))||(str.equals("/"))||(str.equals("."))||(str.equals("%")))) {
             equ.setText("");
         }
